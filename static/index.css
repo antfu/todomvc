@@ -295,6 +295,52 @@ html .clear-completed:active {
 .info a:hover {
   text-decoration: underline;
 }
+.tabs {
+  position: absolute;
+  top     : -30px;
+}
+.tab {
+  display      : inline-block;
+  margin       : 0.2em;
+  width        : 1em;
+  height       : 1em;
+  border-radius: 3em;
+  box-shadow   : 1px 1px 17px 0 rgba(50, 50, 50, 0.1);
+  cursor       : pointer;
+  opacity      : 0.1;
+  transition   : opacity 0.3s ease-in-out;
+}
+.tab:hover {
+  opacity: 1;
+}
+.tab.active {
+  opacity: 1;
+  border : 2px solid #fff;
+}
+.tab.grey {
+  background: #ccc;
+}
+.tab.red {
+  background: #f26b6b;
+}
+.tab.orange {
+  background: #eca060;
+}
+.tab.yellow {
+  background: #e4df46;
+}
+.tab.green {
+  background: #6ddb40;
+}
+.tab.teal {
+  background: #45bf85;
+}
+.tab.blue {
+  background: #2ba0e2;
+}
+.tab.purple {
+  background: #b760ec;
+}
 /*
 	Hack to remove background from Mobile Safari.
 	Can't use it globally since it destroys checkboxes in Firefox
