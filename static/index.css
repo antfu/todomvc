@@ -3,6 +3,12 @@ html {
   margin : 0;
   padding: 0;
 }
+div {
+  user-select: none;
+}
+label {
+  user-select: initial;
+}
 button {
   margin                : 0;
   padding               : 0;
@@ -260,10 +266,10 @@ label[for='toggle-all'] {
 }
 .filters li a.selected,
 .filters li a:hover {
-  border-color: rgba(175, 47, 47, 0.1);
+  border-color: rgba(47, 47, 47, 0.1);
 }
 .filters li a.selected {
-  border-color: rgba(175, 47, 47, 0.2);
+  border-color: rgba(47, 47, 47, 0.2);
 }
 .clear-completed,
 html .clear-completed:active {
@@ -300,15 +306,16 @@ html .clear-completed:active {
   top     : -30px;
 }
 .tab {
-  display      : inline-block;
-  margin       : 5px;
-  width        : 1em;
-  height       : 1em;
-  border-radius: 3em;
-  box-shadow   : 1px 1px 17px 0 rgba(50, 50, 50, 0.1);
-  cursor       : pointer;
-  opacity      : 0.1;
-  transition   : opacity 0.1s ease-in-out;
+  display       : inline-block;
+  margin        : 5px;
+  width         : 1em;
+  height        : 1em;
+  border-radius : 3em;
+  box-shadow    : 1px 1px 17px 0 rgba(50, 50, 50, 0.1);
+  cursor        : pointer;
+  opacity       : 0.1;
+  transition    : opacity 0.1s ease-in-out;
+  vertical-align: middle;
 }
 .tab:hover {
   opacity: 1;

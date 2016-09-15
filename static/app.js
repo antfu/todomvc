@@ -6,7 +6,6 @@
 
   var storage = todoStorage;
 
-  var last_tab_id = todoStorage.fetch('id', undefined, 0);
   var filters = {
     all: function (todos) {
       return todos;
@@ -23,16 +22,14 @@
     }
   };
 
-  exports.use_firebase = function (account) {
-    fireStorage.init(account);
-    storage = fireStorage;
-    exports.app.update();
+  var configs = todoStorage.fetch('configs', undefined) || {
+    tab_id: 0,
+    firebase: false,
   };
-
   exports.app = new Vue({
 
     // the root element that will be compiled
-    el: '.todoapp',
+    el: 'body',
 
     // app initial state
     data: {
@@ -40,21 +37,38 @@
       newTodo: '',
       editedTodo: null,
       visibility: 'all',
-      tab_id: last_tab_id
+      configs: configs
     },
 
     // watch todos change for localStorage persistence
     watch: {
       todos: {
         handler: function (todos) {
-          storage.save(this.$root.tab_id, todos);
+          storage.save(this.$root.configs.tab_id, todos);
         },
         deep: true
       },
-      tab_id: function (val) {
-        todoStorage.save('id', val);
-        last_tab_id = val;
+      configs: {
+        handler: function (val) {
+          todoStorage.save('configs', val);
+        },
+        deep: true
+      },
+      'configs.tab_id': function (val) {
         this.$root.update();
+      },
+      'configs.firebase': function (val) {
+        if (val) {
+          var account = this.$root.configs.firebase_name || 'default';
+          console.log('Enter firebase mode with ' + account);
+          fireStorage.init(account);
+          storage = fireStorage;
+          this.update();
+        } else {
+          console.log('Exit firebase mode');
+          storage = todoStorage;
+          this.update();
+        }
       }
     },
 
@@ -84,7 +98,7 @@
     methods: {
       update: function () {
         var app = this;
-        storage.fetch(app.tab_id, function (data) {
+        storage.fetch(app.configs.tab_id, function (data) {
           Vue.set(app, 'todos', data || []);
         });
       },
@@ -130,7 +144,12 @@
       },
 
       switchTab: function (id) {
-        this.tab_id = id;
+        this.configs.tab_id = id;
+      },
+
+      firebase_mode: function (account) {
+        Vue.set(this.configs, 'firebase_name', account);
+        Vue.set(this.configs, 'firebase', !this.configs.firebase);
       }
     },
 

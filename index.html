@@ -14,14 +14,14 @@
   <body>
     <section class="todoapp">
       <div class="tabs">
-        <div @click="switchTab(0)" :class="{active:tab_id==0}" class="tab grey" ></div>
-        <div @click="switchTab(1)" :class="{active:tab_id==1}" class="tab red"></div>
-        <div @click="switchTab(2)" :class="{active:tab_id==2}" class="tab orange"></div>
-        <div @click="switchTab(3)" :class="{active:tab_id==3}" class="tab yellow"></div>
-        <div @click="switchTab(4)" :class="{active:tab_id==4}" class="tab green"></div>
-        <div @click="switchTab(5)" :class="{active:tab_id==5}" class="tab teal"></div>
-        <div @click="switchTab(6)" :class="{active:tab_id==6}" class="tab blue"></div>
-        <div @click="switchTab(7)" :class="{active:tab_id==7}" class="tab purple"></div>
+        <div @click="switchTab(0)" :class="{active:configs.tab_id==0}" class="tab grey" @dblclick="firebase_mode('demo')"></div>
+        <div @click="switchTab(1)" :class="{active:configs.tab_id==1}" class="tab red"></div>
+        <div @click="switchTab(2)" :class="{active:configs.tab_id==2}" class="tab orange"></div>
+        <div @click="switchTab(3)" :class="{active:configs.tab_id==3}" class="tab yellow"></div>
+        <div @click="switchTab(4)" :class="{active:configs.tab_id==4}" class="tab green"></div>
+        <div @click="switchTab(5)" :class="{active:configs.tab_id==5}" class="tab teal"></div>
+        <div @click="switchTab(6)" :class="{active:configs.tab_id==6}" class="tab blue"></div>
+        <div @click="switchTab(7)" :class="{active:configs.tab_id==7}" class="tab purple"></div>
       </div>
       <header class="header">
         <!--<h1>todos</h1>-->
@@ -66,6 +66,7 @@
       </footer>
     </section>
     <footer class="info">
+      <p v-if="configs.firebase" v-cloak>Connected to Firebase</p>
       <p>Double-click to edit a todo</p>
       <p>All the todos saved in local storage</p>
       <p>Written by <a href="http://evanyou.me">Evan You</a>, Modified by <a href="http://antnf.com">Anthony Fu</a></p>
