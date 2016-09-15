@@ -3,7 +3,10 @@
 (function (exports) {
 
   'use strict';
-  var last_tab_id = todoStorage.fetch('id', 0);
+
+  var storage = todoStorage;
+
+  var last_tab_id = todoStorage.fetch('id', undefined, 0);
   var filters = {
     all: function (todos) {
       return todos;
@@ -20,6 +23,12 @@
     }
   };
 
+  exports.use_firebase = function (account) {
+    fireStorage.init(account);
+    storage = fireStorage;
+    exports.app.update();
+  };
+
   exports.app = new Vue({
 
     // the root element that will be compiled
@@ -27,7 +36,7 @@
 
     // app initial state
     data: {
-      todos: todoStorage.fetch(last_tab_id),
+      todos: [],
       newTodo: '',
       editedTodo: null,
       visibility: 'all',
@@ -38,13 +47,14 @@
     watch: {
       todos: {
         handler: function (todos) {
-          todoStorage.save(this.$root.tab_id, todos);
+          storage.save(this.$root.tab_id, todos);
         },
         deep: true
       },
-      tab_id: function(val) {
-        Vue.set(this.$root, 'todos', todoStorage.fetch(val));
+      tab_id: function (val) {
         todoStorage.save('id', val);
+        last_tab_id = val;
+        this.$root.update();
       }
     },
 
@@ -72,7 +82,12 @@
     // methods that implement data logic.
     // note there's no DOM manipulation here at all.
     methods: {
-
+      update: function () {
+        var app = this;
+        storage.fetch(app.tab_id, function (data) {
+          Vue.set(app, 'todos', data || []);
+        });
+      },
       addTodo: function () {
         var value = this.newTodo && this.newTodo.trim();
         if (!value) {
@@ -134,5 +149,7 @@
       }
     }
   });
+
+  exports.app.update();
 
 })(window);

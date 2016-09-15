@@ -7,6 +7,9 @@
     <link rel='shortcut icon' type='image/png' href='static/favicon.png'/>
     <link rel="stylesheet" href="static/index.css">
     <style> [v-cloak] { display: none; } </style>
+    <script>
+
+    </script>
   </head>
   <body>
     <section class="todoapp">
@@ -57,7 +60,7 @@
           <li><a href="#/active" :class="{selected: visibility == 'active'}">Active</a></li>
           <li><a href="#/completed" :class="{selected: visibility == 'completed'}">Completed</a></li>
         </ul>
-        <button class="clear-completed" @click="removeCompleted" v-show="todos.length > remaining" v-if="false">
+        <button class="clear-completed" @click="removeCompleted" v-show="todos.length > remaining">
           Clear completed
         </button>
       </footer>
@@ -69,6 +72,8 @@
       <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
     </footer>
 
+    <script src="static/firebase-config.js"></script>
+    <script src="static/firebase.js"></script>
     <script src="static/vue.min.js"></script>
     <script src="static/director.js"></script>
     <script src="static/store.js"></script>
