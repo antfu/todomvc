@@ -301,14 +301,14 @@ html .clear-completed:active {
 }
 .tab {
   display      : inline-block;
-  margin       : 0.2em;
+  margin       : 5px;
   width        : 1em;
   height       : 1em;
   border-radius: 3em;
   box-shadow   : 1px 1px 17px 0 rgba(50, 50, 50, 0.1);
   cursor       : pointer;
   opacity      : 0.1;
-  transition   : opacity 0.3s ease-in-out;
+  transition   : opacity 0.1s ease-in-out;
 }
 .tab:hover {
   opacity: 1;
@@ -316,6 +316,7 @@ html .clear-completed:active {
 .tab.active {
   opacity: 1;
   border : 2px solid #fff;
+  margin : 3px;
 }
 .tab.grey {
   background: #ccc;
